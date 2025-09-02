@@ -16,7 +16,7 @@
             <div class="bg-gray-950 rounded-lg p-8 border border-gray-800 shadow-lg hover:border-green-400/50 transition-all duration-300">
                 <div class="text-center mb-6">
                     <h3 class="text-2xl font-bold text-white mb-2">Free</h3>
-                    <div class="text-4xl font-bold text-green-400 mb-2">$0</div>
+                    <div class="text-4xl font-bold text-green-400 mb-2">KSh 0</div>
                     <p class="text-gray-400">Perfect for getting started</p>
                 </div>
                 <ul class="space-y-3 mb-8">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="text-center mb-6">
                     <h3 class="text-2xl font-bold text-white mb-2">Pro</h3>
-                    <div class="text-4xl font-bold text-green-400 mb-2">$9.99</div>
+                    <div class="text-4xl font-bold text-green-400 mb-2">KSh 1,299</div>
                     <p class="text-gray-400">per month</p>
                 </div>
                 <ul class="space-y-3 mb-8">
@@ -87,7 +87,7 @@
             <div class="bg-gray-950 rounded-lg p-8 border border-gray-800 shadow-lg hover:border-green-400/50 transition-all duration-300">
                 <div class="text-center mb-6">
                     <h3 class="text-2xl font-bold text-white mb-2">Enterprise</h3>
-                    <div class="text-4xl font-bold text-green-400 mb-2">$29.99</div>
+                    <div class="text-4xl font-bold text-green-400 mb-2">KSh 3,899</div>
                     <p class="text-gray-400">per month</p>
                 </div>
                 <ul class="space-y-3 mb-8">
@@ -140,7 +140,7 @@
                 </div>
                 <div class="bg-gray-950 rounded-lg p-6 border border-gray-800">
                     <h4 class="text-lg font-bold text-white mb-3">Do you offer a free trial?</h4>
-                    <p class="text-gray-300">Yes! All paid plans come with a 14-day free trial. No credit card required to start.</p>
+                    <p class="text-gray-300">Yes! All paid plans come with a 14-day free trial. No payment required to start.</p>
                 </div>
             </div>
         </div>
