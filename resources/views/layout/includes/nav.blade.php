@@ -36,6 +36,12 @@
                     <span
                         class="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-400 transition-all group-hover:w-full"></span>
                 </a>
+                <a href="/dashboard"
+                    class="text-gray-300 hover:text-green-400 [&.active]:text-green-400 [&.active>span]:w-full transition-colors font-medium relative group">
+                    Dashboard
+                    <span
+                        class="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-400 transition-all group-hover:w-full"></span>
+                </a>
             </div>
             <div class="md:hidden">
                 <button @click="open = !open" class="text-gray-300 hover:text-green-400 transition-colors">
@@ -59,6 +65,8 @@
                         class="text-gray-300 hover:text-green-400 [&.active]:text-green-400 transition-colors font-medium">Reviews</a>
                     <a href="#contact" data-type="smooth" @click="open = false"
                         class="text-gray-300 hover:text-green-400 [&.active]:text-green-400 transition-colors font-medium">Contact</a>
+                    <a href="/dashboard" @click="open = false"
+                        class="text-gray-300 hover:text-green-400 [&.active]:text-green-400 transition-colors font-medium">Dashboard</a>
                 </div>
             </div>
         </nav>

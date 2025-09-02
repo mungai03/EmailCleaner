@@ -2,6 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Grand EmailCleaner</title>
     <!-- Custom styles--->
     <link rel="stylesheet" href="src/css/style.css">
@@ -12,4 +13,6 @@
     <link href="../../cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" rel="stylesheet">
     <!-- glightbox -->
     <link href="vendors/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
+    <!-- Chart.js for analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
