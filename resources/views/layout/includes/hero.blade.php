@@ -157,7 +157,7 @@
                                 </div>
                             </div>
 
-                            <!-- Coffee Cup -->
+                            <!-- Email Cup -->
                             <div class="absolute -bottom-4 md:-bottom-2 left-10 w-12 h-16 opacity-0"
                                 x-data="{ visible: false }" x-intersect.once="visible = true"
                                 x-bind:class="visible ? 'animated fadeInUp delay100' : 'opacity-0'">
@@ -180,7 +180,7 @@
                                 <div
                                     class="absolute w-1.5 h-4 bg-white bg-opacity-30 boalstehwqbj left-8 -top-3 steam steam3">
                                 </div>
-                                <div class="absolute left-2 bottom-3 text-[8px] tracking-widest">COFFEE</div>
+                                <div class="absolute left-2 bottom-3 text-[8px] tracking-widest">EMAIL</div>
                             </div>
 
                             <div class="absolute top-32 left-12 w-12 h-12 bg-blue-200 rounded sticky-note max-sm:hidden"
@@ -189,8 +189,8 @@
                                     <div
                                         class="w-full text-center text-gray-800 font-bold text-[0.4rem] lg:text-[0.5rem]">
                                         IDEA:</div>
-                                    <div class="w-full text-center text-gray-800 text-[0.4rem] leading-tight">New
-                                        portfolio</div>
+                                    <div class="w-full text-center text-gray-800 text-[0.4rem] leading-tight">Auto
+                                        filters</div>
                                 </div>
                             </div>
                         </div>
