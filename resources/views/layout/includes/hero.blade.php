@@ -21,17 +21,23 @@
                             Advanced email management and cleaning solution. Organize, clean, and optimize your email workflow with powerful automation tools.
                         </p>
 
-                        <div class="flex flex-wrap yhansklopals spoathnmkles py-2">
-                            <a href="#features" data-type="smooth"
-                                class="maksueyropls py-3 bg-green-500 hover:bg-green-600 text-gray-900 font-bold rounded-lg transition-all flex layhetgsjdcb gap-2 opacity-0"
+                        <div class="flex flex-wrap yhansklopals spoathnmkles py-2 gap-4">
+                            <a href="/dashboard" 
+                                class="maksueyropls py-3 bg-green-500 hover:bg-green-600 text-gray-900 font-bold rounded-lg transition-all flex layhetgsjdcb gap-2 opacity-0 transform hover:scale-105"
                                 x-data="{ visible: false }" x-intersect.once="visible = true"
                                 x-bind:class="visible ? 'animated fadeInUp delay500' : 'opacity-0'">
+                                <i class="fas fa-plug"></i> Connect Email
+                            </a>
+                            <a href="#features" data-type="smooth"
+                                class="maksueyropls py-3 bg-transparent hover:bg-gray-800 text-green-400 border border-green-400 font-bold rounded-lg transition-all flex layhetgsjdcb gap-2 opacity-0 transform hover:scale-105"
+                                x-data="{ visible: false }" x-intersect.once="visible = true"
+                                x-bind:class="visible ? 'animated fadeInUp delay700' : 'opacity-0'">
                                 <i class="fas fa-magic"></i> View Features
                             </a>
                             <a href="#pricing" data-type="smooth"
-                                class="maksueyropls py-3 bg-transparent hover:bg-gray-800 text-green-400 border border-green-400 font-bold rounded-lg transition-all flex layhetgsjdcb gap-2 opacity-0"
+                                class="maksueyropls py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition-all flex layhetgsjdcb gap-2 opacity-0 transform hover:scale-105"
                                 x-data="{ visible: false }" x-intersect.once="visible = true"
-                                x-bind:class="visible ? 'animated fadeInUp delay700' : 'opacity-0'">
+                                x-bind:class="visible ? 'animated fadeInUp delay900' : 'opacity-0'">
                                 <i class="fas fa-rocket"></i> Get Started
                             </a>
                         </div>

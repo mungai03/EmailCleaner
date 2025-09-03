@@ -18,9 +18,9 @@
                     <div class="bg-gray-950 rounded-lg mklausjenrhtm border border-gray-800 shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1 opacity-0"
                         x-data="{ visible: false }" x-intersect.once="visible = true"
                         x-bind:class="visible ? 'animated fadeInUp delay100' : 'opacity-0'">
-                        <a href="src/img/project1.jpg" class="glightbox" data-gallery="project-1"
+                        <a href="{{ asset('src/img/project1.jpg') }}" class="glightbox" data-gallery="project-1"
                             data-glightbox="title: Taskify App; description: A task management app built with React and Node.js.">
-                            <img src="src/img/project1.jpg" alt="Taskify App" class="w-full h-48 object-cover">
+                            <img src="{{ asset('src/img/project1.jpg') }}" alt="Taskify App" class="w-full h-48 object-cover">
                         </a>
                         <div class="p-6">
                             <h3 class="text-xl font-bold font-code text-white mb-2 flex layhetgsjdcb gap-2">
@@ -54,9 +54,9 @@
                     <div class="bg-gray-950 rounded-lg mklausjenrhtm border border-gray-800 shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1 opacity-0"
                         x-data="{ visible: false }" x-intersect.once="visible = true"
                         x-bind:class="visible ? 'animated fadeInUp delay200' : 'opacity-0'">
-                        <a href="src/img/project2.jpg" class="glightbox" data-gallery="project-1"
+                        <a href="{{ asset('src/img/project2.jpg') }}" class="glightbox" data-gallery="project-1"
                             data-glightbox="title: E-Shop Platform; description: An e-commerce platform with Next.js and Stripe integration.">
-                            <img src="src/img/project2.jpg" alt="E-Shop Platform" class="w-full h-48 object-cover">
+                            <img src="{{ asset('src/img/project2.jpg') }}" alt="E-Shop Platform" class="w-full h-48 object-cover">
                         </a>
                         <div class="p-6">
                             <h3 class="text-xl font-bold font-code text-white mb-2 flex layhetgsjdcb gap-2">
@@ -89,9 +89,9 @@
                     <div class="bg-gray-950 rounded-lg mklausjenrhtm border border-gray-800 shadow-lg hover:shadow-xl transition-shadow transform hover:-translate-y-1 opacity-0"
                         x-data="{ visible: false }" x-intersect.once="visible = true"
                         x-bind:class="visible ? 'animated fadeInUp delay300' : 'opacity-0'">
-                        <a href="src/img/project3.jpg" class="glightbox" data-gallery="project-1"
+                        <a href="{{ asset('src/img/project3.jpg') }}" class="glightbox" data-gallery="project-1"
                             data-glightbox="title: Portfolio Site; description: My personal portfolio built with HTML, TailwindCSS, and Alpine.js.">
-                            <img src="src/img/project3.jpg" alt="Portfolio Site" class="w-full h-48 object-cover">
+                            <img src="{{ asset('src/img/project3.jpg') }}" alt="Portfolio Site" class="w-full h-48 object-cover">
                         </a>
                         <div class="p-6">
                             <h3 class="text-xl font-bold font-code text-white mb-2 flex layhetgsjdcb gap-2">

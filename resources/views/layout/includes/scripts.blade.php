@@ -198,42 +198,42 @@
             Alpine.data('testimonials', () => ({
                 testimonials: [{
                         name: 'Sarah Mitchell',
-                        avatar: 'src/img/female1.jpg',
+                        avatar: '{{ asset("src/img/male2.jpg") }}',
                         role: 'CEO, TechTrend',
                         quote: 'Johns expertise in React and Node.js transformed our apps performance. His attention to detail is unmatched!',
                         rating: 5
                     },
                     {
                         name: 'Michael Chen',
-                        avatar: 'src/img/male1.jpg',
+                        avatar: '{{ asset("src/img/male2.jpg") }}',
                         role: 'Product Manager, InnovateCo',
                         quote: 'Working with John was a breeze. He delivered clean, efficient code ahead of schedule.',
                         rating: 4
                     },
                     {
                         name: 'Emily Davis',
-                        avatar: 'src/img/female2.jpg',
+                        avatar: '{{ asset("src/img/male2.jpg") }}',
                         role: 'Founder, StartUpX',
                         quote: 'Johns creative solutions and dedication made our project a success. Highly recommend!',
                         rating: 5
                     },
                     {
                         name: 'David Johnson',
-                        avatar: 'src/img/male2.jpg',
+                        avatar: '{{ asset("src/img/male2.jpg") }}',
                         role: 'CTO, WebCore Solutions',
                         quote: 'John brought fresh ideas and robust architecture to our development team. Hes a true professional.',
                         rating: 5
                     },
                     {
                         name: 'Anna Lee',
-                        avatar: 'src/img/female3.jpg',
+                        avatar: '{{ asset("src/img/male2.jpg") }}',
                         role: 'Design Lead, Creativa',
                         quote: 'His collaboration with the design team was seamless. The final UI exceeded expectations!',
                         rating: 4
                     },
                     {
                         name: 'Vivian Gomez',
-                        avatar: 'src/img/female4.jpg',
+                        avatar: '{{ asset("src/img/male2.jpg") }}',
                         role: 'Marketing Director, BrandReach',
                         quote: 'From code quality to communication, John delivers top-tier results every time.',
                         rating: 5
@@ -245,7 +245,7 @@
                 posts: [{
                         title: 'Mastering React Hooks: A Deep Dive',
                         excerpt: 'Explore the power of React Hooks to manage state and side effects in functional components, with practical examples and best practices.',
-                        image: 'src/img/blog1.jpg',
+                        image: '{{ asset("src/img/project1.jpg") }}',
                         url: 'blog-detail.html',
                         date: 'May 10, 2025',
                         tags: ['React', 'JavaScript', 'Frontend']
@@ -253,7 +253,7 @@
                     {
                         title: 'Scaling Node.js Apps with Docker',
                         excerpt: 'Learn how to containerize Node.js applications using Docker for seamless deployment and scalability in production environments.',
-                        image: 'src/img/blog2.jpg',
+                        image: '{{ asset("src/img/project2.jpg") }}',
                         url: 'blog-detail.html',
                         date: 'April 25, 2025',
                         tags: ['Node.js', 'Docker', 'DevOps']
@@ -261,7 +261,7 @@
                     {
                         title: 'Why TailwindCSS Changed My Workflow',
                         excerpt: 'Discover how TailwindCSS streamlines frontend development with utility-first styling, boosting productivity and maintainability.',
-                        image: 'src/img/blog3.jpg',
+                        image: '{{ asset("src/img/project3.jpg") }}',
                         url: 'blog-detail.html',
                         date: 'April 15, 2025',
                         tags: ['TailwindCSS', 'CSS', 'Frontend']
@@ -312,59 +312,69 @@
             startTyping();
 
             // GLightbox placeholder
-            const lightbox = GLightbox({
-                touchNavigation: true,
-                loop: true,
-                autoplayVideos: true,
-                zoomable: true,
-                draggable: true,
-                selector: '.glightbox'
-            });
+            if (typeof GLightbox !== 'undefined') {
+                const lightbox = GLightbox({
+                    touchNavigation: true,
+                    loop: true,
+                    autoplayVideos: true,
+                    zoomable: true,
+                    draggable: true,
+                    selector: '.glightbox'
+                });
+            }
 
             // Marquee
-            const marquee = document.getElementById('marquee');
-            const marqueeContent = marquee.innerHTML;
-            marquee.innerHTML += marqueeContent;
-            const marqueeItems = marquee.children;
-            let totalWidth = 0;
+            try {
+                const marquee = document.getElementById('marquee');
+                if (marquee && marquee.innerHTML !== undefined) {
+                    const marqueeContent = marquee.innerHTML;
+                    marquee.innerHTML += marqueeContent;
+                    const marqueeItems = marquee.children;
+                    let totalWidth = 0;
 
-            for (let item of marqueeItems) {
-                totalWidth += item.offsetWidth + 32; // Include gap-8 (32px)
+                    for (let item of marqueeItems) {
+                        totalWidth += item.offsetWidth + 32; // Include gap-8 (32px)
+                    }
+                    marquee.style.width = `${totalWidth}px`;
+                    // Add hover stop functionality
+                    marquee.addEventListener('mouseenter', () => {
+                        marquee.style.animationPlayState = 'paused';
+                    });
+                    marquee.addEventListener('mouseleave', () => {
+                        marquee.style.animationPlayState = 'running';
+                    });
+                }
+            } catch (error) {
+                console.log('Marquee initialization skipped:', error.message);
             }
-            marquee.style.width = `${totalWidth}px`;
-            // Add hover stop functionality
-            marquee.addEventListener('mouseenter', () => {
-                marquee.style.animationPlayState = 'paused';
-            });
-            marquee.addEventListener('mouseleave', () => {
-                marquee.style.animationPlayState = 'running';
-            });
 
             // Back to top and smooth scroll
             const backToTopButton = document.getElementById('back-to-top');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    backToTopButton.style.display = 'block';
-                    backToTopButton.classList.remove('opacity-0', 'invisible');
-                    backToTopButton.classList.add('opacity-100', 'visible');
-                } else {
-                    backToTopButton.classList.remove('opacity-100', 'visible');
-                    backToTopButton.classList.add('opacity-0', 'invisible');
-                    setTimeout(() => {
-                        if (window.scrollY <= 300) {
-                            backToTopButton.style.display = 'none';
-                        }
-                    }, 300);
-                }
-                checkCurrentSection();
-            });
-            backToTopButton.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
+            if (backToTopButton) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 300) {
+                        backToTopButton.style.display = 'block';
+                        backToTopButton.classList.remove('opacity-0', 'invisible');
+                        backToTopButton.classList.add('opacity-100', 'visible');
+                    } else {
+                        backToTopButton.classList.remove('opacity-100', 'visible');
+                        backToTopButton.classList.add('opacity-0', 'invisible');
+                        setTimeout(() => {
+                            if (window.scrollY <= 300) {
+                                backToTopButton.style.display = 'none';
+                            }
+                        }, 300);
+                    }
+                    checkCurrentSection();
                 });
-                setActiveLink('home');
-            });
+                backToTopButton.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    setActiveLink('home');
+                });
+            }
 
             // add active link
             const navLinks = document.querySelectorAll('a[data-type="smooth"]');
@@ -380,6 +390,7 @@
                 if (activeLink) activeLink.classList.add('active');
             };
             const checkCurrentSection = () => {
+                if (sections.length === 0) return;
                 let current = '';
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop - 80; // Adjust for header height
@@ -391,7 +402,7 @@
                 });
                 if (current) {
                     setActiveLink(current);
-                } else if (window.pageYOffset < sections[0].offsetTop - 80) {
+                } else if (sections.length > 0 && window.pageYOffset < sections[0].offsetTop - 80) {
                     setActiveLink('home');
                 }
             };

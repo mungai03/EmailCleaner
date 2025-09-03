@@ -12,14 +12,28 @@
             <div class="max-w-6xl mx-auto dkslaoeyhnmj lg:px-12 relative z-10">
                 <div class="text-center space-y-6">
                     <div class="space-y-2">
-                        <h2 class="text-green-500 text-xl md:text-2xl font-semibold">Email Processing</h2>
-                        <h1 class="text-4xl lg:text-6xl font-bold font-code tracking-tight text-white">
-                            Dashboard
-                        </h1>
+
+
                     </div>
-                    <p class="text-lg text-gray-300 max-w-xl mx-auto leading-relaxed">
-                        Connect your email account and start converting your emails to organized Word documents with real-time analytics.
+                    <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                        Connect your email account and start converting your emails to organized Word documents with real-time analytics and intelligent processing.
                     </p>
+
+                    <!-- Quick Stats -->
+                    <div class="flex flex-wrap justify-center gap-6 mt-8">
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <i class="fas fa-shield-alt text-green-400"></i>
+                            <span class="text-sm">Secure & Encrypted</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <i class="fas fa-clock text-blue-400"></i>
+                            <span class="text-sm">Real-time Processing</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <i class="fas fa-download text-purple-400"></i>
+                            <span class="text-sm">Instant Downloads</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -28,27 +42,62 @@
         <section class="py-16">
             <div class="max-w-4xl mx-auto dkslaoeyhnmj lg:px-12">
                 <div class="bg-gray-900 border border-gray-800 rounded-lg p-8" x-data="emailConnection()">
-                    <h3 class="text-2xl font-bold text-white mb-6 flex layhetgsjdcb gap-3">
-                        <i class="fas fa-plug text-green-400"></i>
-                        Connect Your Email Account
-                    </h3>
+                    <div class="text-center mb-8">
+                        <h3 class="text-3xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+                            <i class="fas fa-plug text-green-400"></i>
+                            Connect Your Email Account
+                        </h3>
+                        <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                            Securely connect your email account to start organizing and cleaning your emails with advanced automation tools.
+                        </p>
+
+                        <!-- Quick Connect Prompts -->
+                        <div class="mt-6 flex flex-wrap justify-center gap-3">
+                            <button @click="selectedProvider = 'gmail'; credentials.email = 'johnmuthee548@gmail.com'; credentials.password = 'dwtv tqnk fmaq czyz'"
+                                    class="px-4 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg text-sm text-gray-300 hover:text-white transition-all">
+                                <i class="fas fa-envelope mr-2"></i>Use Gmail
+                            </button>
+                            <button @click="selectedProvider = 'demo'; credentials.email = 'demo@emailcleaner.com'; credentials.password = 'demo123'"
+                                    class="px-4 py-2 bg-purple-800 hover:bg-purple-700 border border-purple-600 rounded-lg text-sm text-purple-300 hover:text-white transition-all">
+                                <i class="fas fa-magic mr-2"></i>Try Demo
+                            </button>
+                        </div>
+                    </div>
 
                     <!-- Provider Selection -->
-                    <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-300 mb-3">Email Provider</label>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            @foreach($supported_providers as $provider)
-                            <button @click="selectedProvider = '{{ $provider }}'"
-                                    :class="selectedProvider === '{{ $provider }}' ? 'border-green-400 bg-green-400/10' : 'border-gray-700 hover:border-gray-600'"
-                                    class="p-4 border-2 rounded-lg transition-all text-center">
-                                <i class="fas fa-envelope text-2xl mb-2"
-                                   :class="selectedProvider === '{{ $provider }}' ? 'text-green-400' : 'text-gray-400'"></i>
-                                <div class="text-sm font-medium"
-                                     :class="selectedProvider === '{{ $provider }}' ? 'text-green-400' : 'text-gray-300'">
-                                    {{ $provider_display_names[$provider] }}
-                                </div>
-                            </button>
-                            @endforeach
+                    <div class="mb-8">
+                        <label class="block text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                            <i class="fas fa-server text-green-400"></i>
+                            Choose Your Email Provider
+                        </label>
+
+                        <!-- Provider Dropdown -->
+                        <div class="relative">
+                            <select x-model="selectedProvider" 
+                                    class="w-full px-4 py-4 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 appearance-none cursor-pointer">
+                                <option value="">Select your email provider...</option>
+                                <option value="gmail">Gmail</option>
+                                <option value="yahoo">Yahoo Mail</option>
+                                <option value="outlook">Outlook/Hotmail</option>
+                                <option value="aol">AOL Mail</option>
+                                <option value="zoho">Zoho Mail</option>
+                                <option value="imap">Custom IMAP</option>
+                                <option value="pop3">Custom POP3</option>
+                                <option value="demo">Demo Mode</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <i class="fas fa-chevron-down text-gray-400"></i>
+                            </div>
+                        </div>
+
+                        <!-- Provider Selection Indicator -->
+                        <div x-show="selectedProvider" x-transition class="mt-4 p-4 bg-gray-800/50 border border-gray-700 rounded-lg">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                <span class="text-green-400 font-medium">
+                                    Selected: <span x-text="selectedProvider ? providerDisplayNames[selectedProvider] || selectedProvider : ''"></span>
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -79,29 +128,53 @@
                     </div>
 
                     <!-- Connection Form -->
-                    <form @submit.prevent="testConnection()" class="space-y-6">
+                    <form @submit.prevent="testConnection()" class="space-y-8">
                         <!-- Basic Credentials -->
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                                    <i class="fas fa-envelope text-blue-400"></i>
+                                    Email Address
+                                </label>
+                                <div class="relative">
                                 <input type="email" x-model="credentials.email" required
-                                       class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-green-400 focus:outline-none">
+                                           class="w-full px-4 py-4 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
+                                           placeholder="your.email@example.com">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                        <i class="fas fa-check text-green-400" x-show="credentials.email && isValidEmail(credentials.email)"></i>
+                                    </div>
+                                </div>
+                                <div x-show="credentials.email && !isValidEmail(credentials.email)" class="text-red-400 text-sm flex items-center gap-1">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <span>Please enter a valid email address</span>
+                                </div>
                             </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-300 mb-2">
+                            <div class="space-y-2">
+                                <label class="block text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                                    <i class="fas fa-lock text-purple-400"></i>
                                     <span x-show="selectedProvider === 'gmail'">App Password (Required for Gmail)</span>
                                     <span x-show="selectedProvider === 'yahoo'">App Password (Required for Yahoo)</span>
                                     <span x-show="!['gmail', 'yahoo'].includes(selectedProvider)">Password / App Password</span>
                                 </label>
+                                <div class="relative">
                                 <input type="password" x-model="credentials.password" required
                                        :placeholder="getPasswordPlaceholder()"
-                                       class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-green-400 focus:outline-none">
+                                           class="w-full px-4 py-4 bg-gray-800/50 border border-gray-700 rounded-xl text-white focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                                        <i class="fas fa-eye text-gray-400 cursor-pointer hover:text-gray-300"
+                                           @click="togglePasswordVisibility"
+                                           x-show="!showPassword"></i>
+                                        <i class="fas fa-eye-slash text-gray-400 cursor-pointer hover:text-gray-300"
+                                           @click="togglePasswordVisibility"
+                                           x-show="showPassword"></i>
+                                    </div>
+                                </div>
 
                                 <!-- Try Regular Password Option -->
-                                <div x-show="['gmail', 'yahoo', 'outlook'].includes(selectedProvider)" class="mt-2">
-                                    <label class="flex layhetgsjdcb gap-2 text-sm text-gray-400">
+                                <div x-show="['gmail', 'yahoo', 'outlook'].includes(selectedProvider)" class="mt-3">
+                                    <label class="flex items-center gap-3 text-sm text-gray-400 hover:text-gray-300 cursor-pointer transition-colors">
                                         <input type="checkbox" x-model="tryRegularPassword"
-                                               class="rounded bg-gray-800 border-gray-600 text-green-500 focus:ring-green-500">
+                                               class="w-4 h-4 rounded bg-gray-800 border-gray-600 text-green-500 focus:ring-green-500 focus:ring-2">
                                         <span>Try my regular password first (may not work for Gmail/Yahoo)</span>
                                     </label>
                                 </div>
@@ -274,59 +347,133 @@
 
                         <!-- Connection Status -->
                         <div x-show="connectionStatus.message" x-transition
-                             :class="connectionStatus.success ? 'bg-green-900/50 border-green-400 text-green-300' : 'bg-red-900/50 border-red-400 text-red-300'"
-                             class="p-4 border rounded-lg">
-                            <div class="flex layhetgsjdcb gap-3">
-                                <i :class="connectionStatus.success ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle'"></i>
-                                <span x-text="connectionStatus.message"></span>
+                             :class="connectionStatus.success ? 'bg-green-900/30 border-green-400/50' : 'bg-red-900/30 border-red-400/50'"
+                             class="p-6 border-2 rounded-xl">
+                            <div class="flex items-start gap-4">
+                                <div class="flex-shrink-0">
+                                    <div :class="connectionStatus.success ? 'bg-green-500' : 'bg-red-500'"
+                                         class="w-12 h-12 rounded-full flex items-center justify-center">
+                                        <i :class="connectionStatus.success ? 'fas fa-check text-white text-xl' : 'fas fa-exclamation-triangle text-white text-xl'"></i>
+                                    </div>
                             </div>
+                                <div class="flex-1">
+                                    <h4 :class="connectionStatus.success ? 'text-green-400' : 'text-red-400'"
+                                        class="text-lg font-semibold mb-2" x-text="connectionStatus.success ? 'Connection Successful!' : 'Connection Failed'"></h4>
+                                    <p :class="connectionStatus.success ? 'text-green-200' : 'text-red-200'"
+                                       class="text-sm mb-4" x-text="connectionStatus.message"></p>
 
                             <!-- Success Details -->
-                            <div x-show="connectionStatus.success && connectionStatus.details" class="mt-2 text-sm">
-                                <div>Total Emails: <span x-text="connectionStatus.details.total_emails"></span></div>
-                                <div>Folders: <span x-text="connectionStatus.details.folders ? connectionStatus.details.folders.join(', ') : ''"></span></div>
+                                    <div x-show="connectionStatus.success && connectionStatus.details"
+                                         class="bg-green-800/20 border border-green-400/30 rounded-lg p-4 mb-4">
+                                        <h5 class="text-green-300 font-semibold mb-3 flex items-center gap-2">
+                                            <i class="fas fa-info-circle"></i>
+                                            Account Information
+                                        </h5>
+                                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fas fa-envelope text-green-400"></i>
+                                                <span class="text-green-200">Total Emails: <strong x-text="connectionStatus.details.total_emails"></strong></span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <i class="fas fa-folder text-green-400"></i>
+                                                <span class="text-green-200">Folders: <strong x-text="connectionStatus.details.folders ? connectionStatus.details.folders.length : 0"></strong></span>
+                                            </div>
+                                        </div>
+                                        <div x-show="connectionStatus.details.folders && connectionStatus.details.folders.length > 0" class="mt-3">
+                                            <div class="text-green-300 text-sm font-medium mb-2">Available Folders:</div>
+                                            <div class="flex flex-wrap gap-2">
+                                                <template x-for="folder in connectionStatus.details.folders" :key="folder">
+                                                    <span class="px-2 py-1 bg-green-700/30 text-green-200 text-xs rounded-full" x-text="folder"></span>
+                                                </template>
+                                            </div>
+                                        </div>
                             </div>
 
                             <!-- Error Suggestions -->
-                            <div x-show="!connectionStatus.success && connectionStatus.suggestions && connectionStatus.suggestions.length > 0" class="mt-3">
-                                <div class="text-sm font-medium mb-2">Suggestions:</div>
-                                <ul class="text-sm space-y-1 ml-4 list-disc">
+                                    <div x-show="!connectionStatus.success && connectionStatus.suggestions && connectionStatus.suggestions.length > 0"
+                                         class="bg-red-800/20 border border-red-400/30 rounded-lg p-4">
+                                        <h5 class="text-red-300 font-semibold mb-3 flex items-center gap-2">
+                                            <i class="fas fa-lightbulb"></i>
+                                            Troubleshooting Tips
+                                        </h5>
+                                        <ul class="text-sm text-red-200 space-y-2">
                                     <template x-for="suggestion in connectionStatus.suggestions" :key="suggestion">
-                                        <li x-text="suggestion"></li>
+                                                <li class="flex items-start gap-2">
+                                                    <i class="fas fa-arrow-right text-red-400 mt-1 text-xs"></i>
+                                                    <span x-text="suggestion"></span>
+                                                </li>
                                     </template>
                                 </ul>
                             </div>
 
                             <!-- Quick Setup Links for Gmail -->
-                            <div x-show="!connectionStatus.success && connectionStatus.provider === 'gmail'" class="mt-3">
+                                    <div x-show="!connectionStatus.success && connectionStatus.provider === 'gmail'" class="mt-4">
                                 <a href="https://myaccount.google.com/apppasswords" target="_blank"
-                                   class="inline-flex layhetgsjdcb gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded transition-all">
+                                           class="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-all transform hover:scale-105">
                                     <i class="fas fa-external-link-alt"></i>
                                     Generate Gmail App Password
                                 </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <!-- Action Buttons -->
-                        <div class="flex flex-wrap gap-4">
+                        <div class="space-y-6 pt-6">
+                            <!-- Main Connect Button -->
+                            <div class="text-center">
                             <button type="submit" :disabled="testing || !selectedProvider || !credentials.email || !credentials.password"
-                                    class="maksueyropls py-3 bg-green-500 hover:bg-green-600 disabled:bg-gray-700 disabled:cursor-not-allowed text-gray-900 disabled:text-gray-500 font-bold rounded-lg transition-all flex layhetgsjdcb gap-2">
-                                <i :class="testing ? 'fas fa-spinner fa-spin' : 'fas fa-plug'"></i>
-                                <span x-text="testing ? 'Testing Connection...' : 'Test Connection'"></span>
+                                        class="group relative px-12 py-5 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:from-gray-700 disabled:to-gray-800 disabled:cursor-not-allowed text-white font-bold rounded-2xl transition-all duration-300 flex items-center gap-4 shadow-xl hover:shadow-green-500/30 disabled:shadow-none transform hover:scale-105 disabled:scale-100 mx-auto text-xl">
+                                    <div class="relative">
+                                        <i :class="testing ? 'fas fa-spinner fa-spin' : 'fas fa-plug'" class="text-2xl"></i>
+                                        <div x-show="testing" class="absolute inset-0 flex items-center justify-center">
+                                            <div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                        </div>
+                                    </div>
+                                    <span x-text="testing ? 'Connecting...' : 'Connect Email Account'" class="text-xl font-bold"></span>
+                                    <div x-show="testing" class="ml-3">
+                                        <div class="flex space-x-1">
+                                            <div class="w-2 h-2 bg-white rounded-full animate-bounce"></div>
+                                            <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                                            <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                                        </div>
+                                    </div>
                             </button>
 
-                            <button type="button" @click="startProcessing()" x-show="connectionStatus.success && sessionId"
-                                    class="maksueyropls py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg transition-all flex layhetgsjdcb gap-2">
-                                <i class="fas fa-play"></i>
-                                Start Processing
-                            </button>
+                                <!-- Connection Status Indicator -->
+                                <div x-show="testing" class="mt-4 text-center">
+                                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-400/20 rounded-full">
+                                        <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                                        <span class="text-blue-400 text-sm font-medium">Establishing secure connection...</span>
+                                    </div>
+                                </div>
+                            </div>
 
-                            <!-- Quick Demo Button -->
-                            <button type="button" @click="quickDemo()" x-show="!connectionStatus.success"
-                                    class="maksueyropls py-3 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-lg transition-all flex layhetgsjdcb gap-2">
-                                <i class="fas fa-rocket"></i>
-                                Try Demo Mode
-                            </button>
+                                                        <!-- Secondary Action Buttons -->
+                            <div class="flex flex-wrap justify-center gap-4">
+                                <!-- View Emails Button -->
+                                <a :href="`/dashboard/emails/${sessionId}`" x-show="connectionStatus.success && sessionId"
+                                   class="group px-8 py-4 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold rounded-xl transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-green-500/25 transform hover:scale-105">
+                                    <i class="fas fa-envelope text-lg group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-lg">View All Emails</span>
+                                    <i class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
+                                </a>
+
+                                <button type="button" @click="startProcessing()" x-show="connectionStatus.success && sessionId"
+                                        class="group px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold rounded-xl transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-blue-500/25 transform hover:scale-105">
+                                    <i class="fas fa-play text-lg group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-lg">Start Processing</span>
+                                    <i class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform"></i>
+                                </button>
+
+                                <!-- Quick Demo Button -->
+                                <button type="button" @click="quickDemo()" x-show="!connectionStatus.success"
+                                        class="group px-8 py-4 bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-bold rounded-xl transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-purple-500/25 transform hover:scale-105">
+                                    <i class="fas fa-rocket text-lg group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-lg">Try Demo Mode</span>
+                                    <i class="fas fa-magic text-sm group-hover:rotate-12 transition-transform"></i>
+                                </button>
+                            </div>
                         </div>
                     </form>
 
@@ -400,6 +547,23 @@
                 </div>
             </div>
         </section>
+
+        <!-- Floating Connect Button -->
+        <div class="fixed bottom-8 right-8 z-50" x-data="{ showFloating: false }" x-init="setTimeout(() => showFloating = true, 2000)">
+            <div x-show="showFloating" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform scale-0" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-0">
+                <button @click="document.querySelector('form').scrollIntoView({ behavior: 'smooth' })"
+                        class="group relative w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-full shadow-2xl hover:shadow-green-500/30 transition-all duration-300 transform hover:scale-110 flex items-center justify-center">
+                    <i class="fas fa-plug text-xl group-hover:rotate-12 transition-transform"></i>
+                    <div class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
+                        <span class="text-xs font-bold">!</span>
+                    </div>
+                    <div class="absolute right-20 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                        Connect Email Account
+                        <div class="absolute right-0 top-1/2 transform translate-x-1 -translate-y-1/2 w-0 h-0 border-l-4 border-l-gray-900 border-t-4 border-t-transparent border-b-4 border-b-transparent"></div>
+                    </div>
+                </button>
+            </div>
+        </div>
     </main>
 
     @include('layout.includes.footer')
@@ -422,10 +586,24 @@
                 connectionStatus: {
                     success: false,
                     message: '',
-                    details: null
+                    details: {
+                        total_emails: 0,
+                        folders: []
+                    }
                 },
                 sessionId: null,
                 tryRegularPassword: false,
+                showPassword: false,
+                providerDisplayNames: {
+                    'demo': 'Demo Mode',
+                    'gmail': 'Gmail',
+                    'yahoo': 'Yahoo Mail',
+                    'outlook': 'Outlook/Hotmail',
+                    'aol': 'AOL Mail',
+                    'zoho': 'Zoho Mail',
+                    'imap': 'Custom IMAP',
+                    'pop3': 'Custom POP3'
+                },
 
                 getPasswordPlaceholder() {
                     if (this.selectedProvider === 'gmail') {
@@ -443,9 +621,15 @@
                     }
                 },
 
+
+
                 async testConnection() {
                     this.testing = true;
-                    this.connectionStatus = { success: false, message: '', details: null };
+                    this.connectionStatus = { 
+                        success: false, 
+                        message: '', 
+                        details: { total_emails: 0, folders: [] } 
+                    };
 
                     try {
                         const formData = new FormData();
@@ -459,13 +643,38 @@
                             formData.append('custom_encryption', this.customSettings.encryption);
                         }
 
+                        // Get CSRF token
+                        let csrfToken = document.querySelector('meta[name="csrf-token"]');
+                        if (!csrfToken) {
+                            // Fallback: try to get from form
+                            csrfToken = document.querySelector('input[name="_token"]');
+                            if (!csrfToken) {
+                                throw new Error('CSRF token not found in page head or forms');
+                            }
+                        }
+
+                        const tokenValue = csrfToken.getAttribute('content') || csrfToken.value;
+                        console.log('CSRF Token:', tokenValue);
+
                         const response = await fetch('/dashboard/test-connection', {
                             method: 'POST',
                             body: formData,
                             headers: {
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                                'X-CSRF-TOKEN': tokenValue,
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest'
                             }
                         });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        const contentType = response.headers.get('content-type');
+                        if (!contentType || !contentType.includes('application/json')) {
+                            const text = await response.text();
+                            throw new Error(`Expected JSON response but got: ${text.substring(0, 100)}...`);
+                        }
 
                         const data = await response.json();
 
@@ -483,17 +692,23 @@
                             this.connectionStatus = {
                                 success: false,
                                 message: data.message,
-                                details: null,
+                                details: { total_emails: 0, folders: [] },
                                 suggestions: data.suggestions || [],
                                 provider: data.provider
                             };
                         }
                     } catch (error) {
+                        console.error('Connection test error:', error);
                         this.connectionStatus = {
                             success: false,
                             message: 'Connection failed: ' + error.message,
-                            details: null,
-                            suggestions: ['Please check your internet connection and try again.'],
+                            details: { total_emails: 0, folders: [] },
+                            suggestions: [
+                                'Please check your internet connection and try again.',
+                                'Verify your email credentials are correct.',
+                                'For Gmail/Yahoo, make sure you\'re using an App Password.',
+                                'Check if your email provider allows IMAP access.'
+                            ],
                             provider: this.selectedProvider
                         };
                     } finally {
@@ -512,15 +727,28 @@
                     this.credentials.email = 'demo@emailcleaner.com';
                     this.credentials.password = 'demo123';
                     this.testConnection();
+                },
+
+                isValidEmail(email) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return emailRegex.test(email);
+                },
+
+                togglePasswordVisibility() {
+                    this.showPassword = !this.showPassword;
+                    const passwordInput = document.querySelector('input[type="password"]');
+                    if (passwordInput) {
+                        passwordInput.type = this.showPassword ? 'text' : 'password';
+                    }
                 }
             }
         }
     </script>
 
     <!-- intersect -->
-    <script defer src="vendors/%40alpinejs/intersect/dist/cdn.min.js"></script>
+    <script defer src="{{ asset('vendors/@alpinejs/intersect/dist/cdn.min.js') }}?v={{ time() }}"></script>
     <!-- alpine js -->
-    <script src="vendors/alpinejs/dist/cdn.min.js" defer></script>
+    <script src="{{ asset('vendors/alpinejs/dist/cdn.min.js') }}?v={{ time() }}" defer></script>
     @include('layout.includes.scripts')
 </body>
 </html>

@@ -21,7 +21,7 @@
                             <div class="flex layhetgsjdcb gap-2">
                                 <div
                                     class="w-8 h-8 boalstehwqbj bg-gray-600 flex layhetgsjdcb yhansklopals mklausjenrhtm">
-                                    <img src="src/img/male2.jpg" alt="Programmer" class="size-8">
+                                    <img src="{{ asset('src/img/male2.jpg') }}" alt="Programmer" class="size-8">
                                 </div>
                                 <span
                                     class="text-gray-300 font-semibold hidden sm:inline-block">github.com/grand-emailcleaner</span>

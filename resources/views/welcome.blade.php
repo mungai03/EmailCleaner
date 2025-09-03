@@ -9,6 +9,9 @@
         <!-- Hero -->
         @include('layout.includes.hero')
 
+        <!-- Quick Start -->
+        @include('layout.includes.quick-start')
+
         <!-- Features -->
         @include('layout.includes.features')
 
@@ -40,11 +43,11 @@
     </button>
 
     <!-- intersect -->
-    <script defer src="vendors/%40alpinejs/intersect/dist/cdn.min.js"></script>
+    <script defer src="{{ asset('vendors/@alpinejs/intersect/dist/cdn.min.js') }}?v={{ time() }}"></script>
     <!-- alpine js -->
-    <script src="vendors/alpinejs/dist/cdn.min.js" defer></script>
+    <script src="{{ asset('vendors/alpinejs/dist/cdn.min.js') }}?v={{ time() }}" defer></script>
     <!-- glightbox -->
-    <script src="vendors/glightbox/dist/js/glightbox.min.js"></script>
+    <script src="{{ asset('vendors/glightbox/dist/js/glightbox.min.js') }}?v={{ time() }}"></script>
 
    @include('layout.includes.scripts')
 </body>

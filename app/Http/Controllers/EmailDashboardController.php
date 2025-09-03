@@ -23,12 +23,36 @@ class EmailDashboardController extends Controller
 
     public function index()
     {
-        return view('dashboard.index', [
+        $response = response()->view('dashboard.index', [
             'supported_providers' => $this->providerService->getSupportedProviders(),
             'provider_display_names' => collect($this->providerService->getSupportedProviders())
                 ->mapWithKeys(fn($provider) => [$provider => $this->providerService->getProviderDisplayName($provider)])
                 ->toArray(),
         ]);
+        
+        // Add cache-busting headers
+        $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', '0');
+        
+        return $response;
+    }
+
+    public function connect(Request $request)
+    {
+        // Get form data from query parameters or session
+        $provider = $request->get('provider', '');
+        $email = $request->get('email', '');
+        $password = $request->get('password', '');
+        
+        $response = response()->view('dashboard.connect', compact('provider', 'email', 'password'));
+        
+        // Add cache-busting headers
+        $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', '0');
+        
+        return $response;
     }
 
     public function testConnection(Request $request)
@@ -67,19 +91,20 @@ class EmailDashboardController extends Controller
         if ($result['success']) {
             // Create session for successful connection
             $sessionId = Str::uuid();
+            
+            // Encrypt credentials manually
+            $encryptedCredentials = \Illuminate\Support\Facades\Crypt::encryptString(json_encode($credentials));
+            
             $session = EmailSession::create([
                 'session_id' => $sessionId,
                 'provider' => $request->provider,
+                'encrypted_credentials' => $encryptedCredentials,
                 'email_address' => $request->email,
                 'status' => 'connected',
                 'connection_settings' => $customSettings,
                 'total_emails' => $result['total_emails'],
                 'connected_at' => now(),
             ]);
-
-            // Set credentials using the mutator
-            $session->credentials = $credentials;
-            $session->save();
 
             return response()->json([
                 'success' => true,
@@ -165,5 +190,51 @@ class EmailDashboardController extends Controller
             'session' => $session,
             'analytics' => $analytics,
         ]);
+    }
+
+    public function viewEmails(string $sessionId)
+    {
+        $session = EmailSession::where('session_id', $sessionId)->firstOrFail();
+        
+        $response = response()->view('dashboard.emails', compact('session'));
+        
+        // Add cache-busting headers
+        $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', '0');
+        
+        return $response;
+    }
+
+    public function fetchEmails(string $sessionId, Request $request)
+    {
+        $session = EmailSession::where('session_id', $sessionId)->firstOrFail();
+        
+        $limit = $request->get('limit', 50);
+        $credentials = $session->decrypted_credentials;
+        
+        $result = $this->providerService->getAllEmails(
+            $session->provider,
+            $credentials,
+            $session->connection_settings,
+            $limit
+        );
+
+        return response()->json($result);
+    }
+
+    public function getEmailContent(string $sessionId, int $uid)
+    {
+        $session = EmailSession::where('session_id', $sessionId)->firstOrFail();
+        $credentials = $session->decrypted_credentials;
+        
+        $result = $this->providerService->getEmailContent(
+            $session->provider,
+            $credentials,
+            $uid,
+            $session->connection_settings
+        );
+
+        return response()->json($result);
     }
 }
