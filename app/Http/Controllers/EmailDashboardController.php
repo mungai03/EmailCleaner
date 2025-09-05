@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\EmailSession;
 use App\Services\EmailProviderService;
 use App\Services\StorageAnalyticsService;
+use App\Services\OAuthEmailService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -12,13 +13,16 @@ class EmailDashboardController extends Controller
 {
     private EmailProviderService $providerService;
     private StorageAnalyticsService $analyticsService;
+    private OAuthEmailService $oauthEmailService;
 
     public function __construct(
         EmailProviderService $providerService,
-        StorageAnalyticsService $analyticsService
+        StorageAnalyticsService $analyticsService,
+        OAuthEmailService $oauthEmailService
     ) {
         $this->providerService = $providerService;
         $this->analyticsService = $analyticsService;
+        $this->oauthEmailService = $oauthEmailService;
     }
 
     public function index()
@@ -211,29 +215,105 @@ class EmailDashboardController extends Controller
         $session = EmailSession::where('session_id', $sessionId)->firstOrFail();
         
         $limit = $request->get('limit', 50);
-        $credentials = $session->decrypted_credentials;
         
-        $result = $this->providerService->getAllEmails(
-            $session->provider,
-            $credentials,
-            $session->connection_settings,
-            $limit
-        );
+        // Check if this is an OAuth session
+        if (isset($session->connection_settings['oauth_tokens']) && $session->connection_settings['oauth_tokens']) {
+            $tokens = $session->decrypted_credentials;
+            $result = $this->oauthEmailService->getEmails(
+                $session->provider,
+                $tokens,
+                $limit
+            );
+        } else {
+            // Fallback to traditional IMAP
+            $credentials = $session->decrypted_credentials;
+            $result = $this->providerService->getAllEmails(
+                $session->provider,
+                $credentials,
+                $session->connection_settings,
+                $limit
+            );
+        }
 
         return response()->json($result);
     }
 
-    public function getEmailContent(string $sessionId, int $uid)
+    public function getEmailContent(string $sessionId, string $uid)
     {
         $session = EmailSession::where('session_id', $sessionId)->firstOrFail();
-        $credentials = $session->decrypted_credentials;
         
-        $result = $this->providerService->getEmailContent(
-            $session->provider,
-            $credentials,
-            $uid,
-            $session->connection_settings
-        );
+        // Check if this is an OAuth session
+        if (isset($session->connection_settings['oauth_tokens']) && $session->connection_settings['oauth_tokens']) {
+            $tokens = $session->decrypted_credentials;
+            $result = $this->oauthEmailService->getEmailContent(
+                $session->provider,
+                $tokens,
+                $uid
+            );
+        } else {
+            // Fallback to traditional IMAP
+            $credentials = $session->decrypted_credentials;
+            $result = $this->providerService->getEmailContent(
+                $session->provider,
+                $credentials,
+                $uid,
+                $session->connection_settings
+            );
+        }
+
+        return response()->json($result);
+    }
+
+    public function getFolders(string $sessionId)
+    {
+        $session = EmailSession::where('session_id', $sessionId)->firstOrFail();
+        
+        // Check if this is an OAuth session
+        if (isset($session->connection_settings['oauth_tokens']) && $session->connection_settings['oauth_tokens']) {
+            $tokens = $session->decrypted_credentials;
+            $result = $this->oauthEmailService->getFolders(
+                $session->provider,
+                $tokens
+            );
+        } else {
+            // Fallback to traditional IMAP
+            $credentials = $session->decrypted_credentials;
+            $result = $this->providerService->getFolders(
+                $session->provider,
+                $credentials,
+                $session->connection_settings
+            );
+        }
+
+        return response()->json($result);
+    }
+
+    public function getEmailsFromFolder(string $sessionId, string $folderName, Request $request)
+    {
+        $session = EmailSession::where('session_id', $sessionId)->firstOrFail();
+        
+        $limit = $request->get('limit', 50);
+        
+        // Check if this is an OAuth session
+        if (isset($session->connection_settings['oauth_tokens']) && $session->connection_settings['oauth_tokens']) {
+            $tokens = $session->decrypted_credentials;
+            $result = $this->oauthEmailService->getEmailsFromFolder(
+                $session->provider,
+                $tokens,
+                $folderName,
+                $limit
+            );
+        } else {
+            // Fallback to traditional IMAP
+            $credentials = $session->decrypted_credentials;
+            $result = $this->providerService->getEmailsFromFolder(
+                $session->provider,
+                $credentials,
+                $folderName,
+                $session->connection_settings,
+                $limit
+            );
+        }
 
         return response()->json($result);
     }

@@ -47,6 +47,20 @@
                         </div>
                         
                         <div class="flex items-center gap-4">
+                            <!-- Folder Selector -->
+                            <div class="relative">
+                                <select x-model="currentFolder" @change="loadEmailsFromFolder()" 
+                                        class="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-blue-400 focus:outline-none appearance-none cursor-pointer">
+                                    <option value="INBOX">INBOX</option>
+                                    <template x-for="folder in availableFolders" :key="folder">
+                                        <option :value="folder" x-text="folder"></option>
+                                    </template>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <i class="fas fa-chevron-down text-gray-400"></i>
+                                </div>
+                            </div>
+                            
                             <!-- Search -->
                             <div class="relative">
                                 <input type="text" x-model="searchQuery" @input="filterEmails()" 
@@ -266,10 +280,27 @@
                 loading: false,
                 searchQuery: '',
                 currentFolder: 'INBOX',
+                availableFolders: ['INBOX'],
                 sessionId: '{{ $session->session_id }}',
 
                 init() {
+                    this.loadFolders();
                     this.loadEmails();
+                },
+
+                async loadFolders() {
+                    try {
+                        const response = await fetch(`/dashboard/emails/${this.sessionId}/folders`);
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            this.availableFolders = data.folders;
+                        } else {
+                            console.error('Failed to load folders:', data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error loading folders:', error);
+                    }
                 },
 
                 async loadEmails() {
@@ -287,6 +318,25 @@
                         }
                     } catch (error) {
                         console.error('Error loading emails:', error);
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                async loadEmailsFromFolder() {
+                    this.loading = true;
+                    try {
+                        const response = await fetch(`/dashboard/emails/${this.sessionId}/folder/${this.currentFolder}?limit=100`);
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            this.emails = data.emails;
+                            this.filteredEmails = data.emails;
+                        } else {
+                            console.error('Failed to load emails from folder:', data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error loading emails from folder:', error);
                     } finally {
                         this.loading = false;
                     }

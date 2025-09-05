@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmailDashboardController;
 use App\Http\Controllers\EmailProcessingController;
+use App\Http\Controllers\OAuthController;
 
 Route::get('/', function () {
     $response = response()->view('welcome');
@@ -28,6 +29,14 @@ Route::get('/dashboard/results/{sessionId}', [EmailDashboardController::class, '
 Route::get('/dashboard/emails/{sessionId}', [EmailDashboardController::class, 'viewEmails'])->name('dashboard.emails');
 Route::get('/dashboard/emails/{sessionId}/fetch', [EmailDashboardController::class, 'fetchEmails'])->name('dashboard.emails.fetch');
 Route::get('/dashboard/emails/{sessionId}/content/{uid}', [EmailDashboardController::class, 'getEmailContent'])->name('dashboard.emails.content');
+Route::get('/dashboard/emails/{sessionId}/folders', [EmailDashboardController::class, 'getFolders'])->name('dashboard.emails.folders');
+Route::get('/dashboard/emails/{sessionId}/folder/{folderName}', [EmailDashboardController::class, 'getEmailsFromFolder'])->name('dashboard.emails.folder');
+
+// OAuth Routes
+Route::get('/oauth/{provider}/redirect', [OAuthController::class, 'redirect'])->name('oauth.redirect');
+Route::get('/oauth/{provider}/callback', [OAuthController::class, 'callback'])->name('oauth.callback');
+Route::post('/oauth/{sessionId}/disconnect', [OAuthController::class, 'disconnect'])->name('oauth.disconnect');
+Route::post('/oauth/{sessionId}/refresh', [OAuthController::class, 'refreshTokens'])->name('oauth.refresh');
 
 // Processing Routes
 Route::post('/processing/start/{sessionId}', [EmailProcessingController::class, 'startProcessing'])->name('processing.start');
